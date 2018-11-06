@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    public enum Roof
+    interface IHasRoof
     {
-        Heavy=3,
-        Medium=2,
-        Light=1
+        bool HasRoof { get; set; }
     }
 }

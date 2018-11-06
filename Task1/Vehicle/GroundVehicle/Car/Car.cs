@@ -16,7 +16,7 @@ namespace Task1
             Wheels = wheels;
         }
 
-        public string GetData()
+        public override string GetData()
         {
             return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels;
         }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    public enum Trunk
+    interface IHasTrunk
     {
-        FullSize=1,
-        HalfSize=2,
+        bool HasTrunk { get; set; }
     }
 }

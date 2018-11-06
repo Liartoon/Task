@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    public class Vehicle
+    public class Vehicle 
     {
         public string Name { get; private set; }
         public int Price { get; private set; }
@@ -19,6 +19,11 @@ namespace Task1
             Price = price;
             FuelUsage = fuelUsage;
             Speed = speed;
+        }
+
+        public virtual string GetData()
+        {
+            return Name + " " + Price + " " + FuelUsage + " " + Speed + " ";
         }
     }
 }

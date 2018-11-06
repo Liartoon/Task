@@ -10,7 +10,8 @@ namespace Task1
     {
         public int DeckSize { get; private set; }
 
-        public Boat(string name, int price, int fuelUsage, int speed,int deckSize) : base(name, price, fuelUsage,speed)
+        public Boat(string name, int price, int fuelUsage, int speed,int deckSize) : 
+            base(name, price, fuelUsage,speed)
         {
             DeckSize = deckSize;
         }

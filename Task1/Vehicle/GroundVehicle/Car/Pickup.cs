@@ -10,14 +10,15 @@ namespace Task1
     {
         public int PlatformSize { get; private set; }
 
-        public Pickup(string name, int price, int fuelUsage, int speed, int wheels, int platformSize) : base(name,price,fuelUsage,speed,wheels)
+        public Pickup(string name, int price, int fuelUsage, int speed, int wheels, int platformSize) 
+            : base(name,price,fuelUsage,speed,wheels)
         {
             PlatformSize = platformSize;
         }
 
-        public new string GetData()
+        public override string GetData()
         {
-            return Name +" "+ Price + " "+FuelUsage + " "+ Speed+ " " + Wheels + " " + PlatformSize;
+            return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels + " " + PlatformSize;
         }
     }
 }

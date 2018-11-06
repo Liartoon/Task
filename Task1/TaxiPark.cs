@@ -4,57 +4,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+
 
 namespace Task1
 {
-    class TaxiPark
+    public class TaxiPark
     {
-        public List<Car> CarPark { get; private set; }
+        public List<Vehicle> CarPark { get; private set; }
 
-        public int Price { get { return CarPark.Sum(x => x.Price); } }
+        public int TotalValue { get { return CarPark.Sum(x => x.Price); } }
 
         public TaxiPark()
         {
-            CarPark = new List<Car>();
+            CarPark = new List<Vehicle>();
         }
 
         public void FillThePark(string fileName)
         {
             string str;
             string[] strArr;
-            Car newCar = null;
-            StreamReader sr = new StreamReader(fileName);
-            while ((str = sr.ReadLine()) != null)
+            Vehicle newVehicle = null;
+            try
             {
-                strArr = str.Split(' ');
-                switch (int.Parse(strArr[0]))
+                StreamReader sr = new StreamReader(fileName);
+                while ((str = sr.ReadLine()) != null)
                 {
-                    case 1: {newCar = new Cabriolet(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
-                   int.Parse(strArr[4]), int.Parse(strArr[5]),(Roof)int.Parse(strArr[6])); break; }
-                    case 2: {newCar = new Pickup(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
-                   int.Parse(strArr[4]), int.Parse(strArr[5]), int.Parse(strArr[6])); break; }
-                    case 3: {newCar = new Universal(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
-                  int.Parse(strArr[4]), int.Parse(strArr[5]), (Trunk)int.Parse(strArr[6])); break; }
+                    strArr = str.Split(' ');
+                    switch (int.Parse(strArr[0]))
+                    {
+                        case 1:
+                            {
+                                newVehicle = new Cabriolet(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
+                      int.Parse(strArr[4]), int.Parse(strArr[5]), bool.Parse(strArr[6])); break;
+                            }
+                        case 2:
+                            {
+                                newVehicle = new Pickup(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
+                      int.Parse(strArr[4]), int.Parse(strArr[5]), int.Parse(strArr[6])); break;
+                            }
+                        case 3:
+                            {
+                                newVehicle = new Universal(strArr[1], int.Parse(strArr[2]), int.Parse(strArr[3]),
+                     int.Parse(strArr[4]), int.Parse(strArr[5]), bool.Parse(strArr[6])); break;
+                            }
+                    }
+                    CarPark.Add(newVehicle);
                 }
-                
-                CarPark.Add(newCar);
+                sr.Close();
             }
-            sr.Close();
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e.Message);
+                CarPark.Clear();
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                CarPark.Clear();
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
         }
 
-        public void Add(Car car)
+        public void Add(Vehicle vehicle)
         {
-            CarPark.Add(car);
+            CarPark.Add(vehicle);
         }
 
         public void Sort()
         {
-            Comparison<Car> sort = new Comparison<Car>
+            Comparison<Vehicle> sort = new Comparison<Vehicle>
                 ((x,y) => (x.FuelUsage>y.FuelUsage) ? 1 : (x.FuelUsage < y.FuelUsage) ? -1 : 0);
             CarPark.Sort(sort);
         }
 
-        public Car FindCarBySpeedInterval(int leftBorder,int rightBorder)
+        public Vehicle FindCarBySpeedInterval(int leftBorder,int rightBorder)
         {
             return CarPark.Find(x => (x.Speed > leftBorder) && (x.Speed < rightBorder));
         }
