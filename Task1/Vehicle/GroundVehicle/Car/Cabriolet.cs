@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    class Cabriolet : Car
+    public class Cabriolet : Car, IHasRoof
     {
-        public Roof RoofType { get; private set; }
-
-        public Cabriolet(string name, int price, int fuelUsage, int speed, int wheels, Roof roofType) : base(name,price,fuelUsage,speed,wheels)
+        public bool HasRoof
         {
-            RoofType = roofType;
+            get
+            {
+                return _hasRoof;
+            }
+            set
+            {
+                _hasRoof = value;
+            }
+        }
+        private bool _hasRoof;
+
+        public Cabriolet(string name, int price, int fuelUsage, int speed, int wheels, bool hasRoof) : base(name,price,fuelUsage,speed,wheels)
+        {
+            _hasRoof = hasRoof;
         }
 
-        public new string GetData()
+        public override string GetData()
         {
-            return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels + " " + RoofType;
+            return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels + " " + HasRoof;
         }
     }
 }

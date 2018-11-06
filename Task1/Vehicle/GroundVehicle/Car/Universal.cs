@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    class Universal : Car
+    class Universal : Car, IHasTrunk
     {
-        public Trunk TrunkType { get; private set; }
-
-        public Universal(string name, int price, int fuelUsage, int speed, int wheels,Trunk trunkType) : base(name,price,fuelUsage,speed,wheels)
+        public bool HasTrunk
         {
-            TrunkType = trunkType;
+            get
+            {
+                return _hasTrunk;
+            }
+            set
+            {
+                _hasTrunk = value;
+            }
+        }
+        private bool _hasTrunk;
+
+        public Universal(string name, int price, int fuelUsage, int speed, int wheels,bool hasTrunk) : base(name,price,fuelUsage,speed,wheels)
+        {
+            _hasTrunk = hasTrunk;
         }
 
-        public new string GetData()
+        public override string GetData()
         {
-            return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels + " " + TrunkType;
+            return Name + " " + Price + " " + FuelUsage + " " + Speed + " " + Wheels + " " + HasTrunk;
         }
     }
 }
